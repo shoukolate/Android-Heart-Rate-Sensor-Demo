@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE) != null) {
             mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-            mSensorManager.registerListener(this, mSensor, 3);
+            mSensorManager.registerListener(this, mSensor, 3); //I am using "3" as it is said to provide best accuracy ¯\_(ツ)_/¯
             isSensorPresent = true;
         } else {
             HeartRateTxt.setText("Heart rate sensor is not present!");
