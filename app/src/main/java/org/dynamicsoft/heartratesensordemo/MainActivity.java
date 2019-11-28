@@ -18,6 +18,7 @@
 package org.dynamicsoft.heartratesensordemo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -26,9 +27,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
+        assert mSensorManager != null;
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE) != null) {
             mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
             mSensorManager.registerListener(this, mSensor, 3); //I am using "3" as it is said to provide best accuracy ¯\_(ツ)_/¯
@@ -78,15 +82,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-        @Override
-        public void onSensorChanged (SensorEvent event){
-            if (isSensorPresent) {
-                if ((int) event.values[0] != 0) {
-                    HeartRateTxt.setText("Current heart rate: " + Math.round(event.values[0]) + " BPM");
-                }
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (isSensorPresent) {
+            if ((int) event.values[0] != 0) {
+                HeartRateTxt.setText("Current heart rate: " + Math.round(event.values[0]) + " BPM");
             }
         }
-
-        @Override
-        public void onAccuracyChanged (Sensor sensor,int i){ }
     }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+    }
+}

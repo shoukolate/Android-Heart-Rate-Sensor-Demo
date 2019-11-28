@@ -3,7 +3,7 @@
     package="org.dynamicsoft.heartratesensordemo">
 
     <uses-permission android:name="android.permission.BODY_SENSORS" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
